@@ -1,0 +1,35 @@
+# Bundle patch for dsh-daily-pulse.
+#
+# One row is enough: the loader entry loads this package's host half (`index.js`) and the
+# browser half attaches automatically because the row's module name is exactly this
+# package name (`dsh.client` + `exports["./client"]`).
+#
+# Every value below is a tunable: the user's own patch layer overrides this file, so a
+# local override survives a package upgrade.
+- insert:
+    - id: daily-pulse
+      name: dsh-daily-pulse
+      config:
+        # Weather place shown in the panel. Coordinates are used verbatim when both are
+        # given; otherwise the name is geocoded through Open-Meteo once per refresh.
+        city: 上海
+        latitude: 31.2222
+        longitude: 121.4581
+        timezone: Asia/Shanghai
+        # Forecast days after today (1..7).
+        forecastDays: 3
+        # Cache lifetime in minutes. A page opens from cache; the host refreshes in the
+        # background once this is exceeded.
+        cacheMinutes: 30
+        # How many rows each list keeps.
+        modelLimit: 8
+        hotspotLimit: 8
+        repoLimit: 6
+        newsLimit: 10
+        dramaLimit: 8
+        # Only items published in the last N days are eligible for the daily lists.
+        freshDays: 21
+        # Only stories newer than this many days are eligible for the monthly board.
+        monthDays: 31
+        # Extra RSS feeds for the drama / industry columns, each `{ title, url }`.
+        feeds: []
